@@ -1,9 +1,9 @@
-module ehang.io/nps
+module github.com/yyyz/nps
 
 go 1.25.0
 
 require (
-	ehang.io/nps-mux v0.0.0-20210407130203-4afa0c10c992
+	github.com/yyyz/nps-mux v0.0.0-20210407130203-4afa0c10c992
 	fyne.io/fyne/v2 v2.0.2
 	github.com/astaxie/beego v1.12.0
 	github.com/c4milo/unpackit v0.0.0-20170704181138-4ed373e9ef1c

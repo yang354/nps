@@ -3,7 +3,7 @@
 package proxy
 
 import (
-	"ehang.io/nps/lib/conn"
+	"github.com/yyyz/nps/lib/conn"
 )
 
 func HandleTrans(c *conn.Conn, s *TunnelModeServer) error {

@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"ehang.io/nps/lib/conn"
-	"ehang.io/nps/lib/file"
-	"ehang.io/nps/lib/sheap"
+	"github.com/yyyz/nps/lib/conn"
+	"github.com/yyyz/nps/lib/file"
+	"github.com/yyyz/nps/lib/sheap"
 	"github.com/astaxie/beego/logs"
 	"github.com/pkg/errors"
 )

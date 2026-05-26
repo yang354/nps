@@ -1,7 +1,7 @@
 package install
 
 import (
-	"ehang.io/nps/lib/common"
+	"github.com/yyyz/nps/lib/common"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -154,7 +154,7 @@ type release struct {
 
 func downloadLatest(bin string) string {
 	// get version
-	data, err := http.Get("https://api.github.com/repos/ehang-io/nps/releases/latest")
+	data, err := http.Get("https://api.github.com/repos/yyyz/nps/releases/latest")
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -168,7 +168,7 @@ func downloadLatest(bin string) string {
 	fmt.Println("the latest version is", version)
 	filename := runtime.GOOS + "_" + runtime.GOARCH + "_" + bin + ".tar.gz"
 	// download latest package
-	downloadUrl := fmt.Sprintf("https://ehang.io/nps/releases/download/%s/%s", version, filename)
+	downloadUrl := fmt.Sprintf("https://github.com/yyyz/nps/releases/download/%s/%s", version, filename)
 	fmt.Println("download package from ", downloadUrl)
 	resp, err := http.Get(downloadUrl)
 	if err != nil {

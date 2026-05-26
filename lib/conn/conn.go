@@ -3,7 +3,7 @@ package conn
 import (
 	"bufio"
 	"bytes"
-	"ehang.io/nps/lib/goroutine"
+	"github.com/yyyz/nps/lib/goroutine"
 	"encoding/binary"
 	"encoding/json"
 	"errors"
@@ -17,11 +17,11 @@ import (
 	"sync"
 	"time"
 
-	"ehang.io/nps/lib/common"
-	"ehang.io/nps/lib/crypt"
-	"ehang.io/nps/lib/file"
-	"ehang.io/nps/lib/pmux"
-	"ehang.io/nps/lib/rate"
+	"github.com/yyyz/nps/lib/common"
+	"github.com/yyyz/nps/lib/crypt"
+	"github.com/yyyz/nps/lib/file"
+	"github.com/yyyz/nps/lib/pmux"
+	"github.com/yyyz/nps/lib/rate"
 	"github.com/xtaci/kcp-go"
 )
 

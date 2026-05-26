@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"ehang.io/nps/lib/common"
-	"ehang.io/nps/lib/file"
+	"github.com/yyyz/nps/lib/common"
+	"github.com/yyyz/nps/lib/file"
 	"github.com/astaxie/beego"
 )
 

@@ -2,7 +2,7 @@ package common
 
 import (
 	"bytes"
-	"ehang.io/nps/lib/version"
+	"github.com/yyyz/nps/lib/version"
 	"encoding/base64"
 	"encoding/binary"
 	"errors"
@@ -18,7 +18,7 @@ import (
 	"strings"
 	"sync"
 
-	"ehang.io/nps/lib/crypt"
+	"github.com/yyyz/nps/lib/crypt"
 )
 
 //Get the corresponding IP address through domain name

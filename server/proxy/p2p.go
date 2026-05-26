@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	"ehang.io/nps/lib/common"
+	"github.com/yyyz/nps/lib/common"
 	"github.com/astaxie/beego/logs"
 )
 

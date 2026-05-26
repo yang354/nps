@@ -4,7 +4,7 @@ import (
 	"encoding/hex"
 	"time"
 
-	"ehang.io/nps/lib/crypt"
+	"github.com/yyyz/nps/lib/crypt"
 	"github.com/astaxie/beego"
 )
 

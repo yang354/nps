@@ -1,3 +1,3 @@
-* [![GitHub stars](https://img.shields.io/github/stars/ehang-io/nps?style=social)](https://github.com/ehang-io/nps/stargazers)
+* [![GitHub stars](https://img.shields.io/github/stars/yyyz/nps?style=social)](https://github.com/yyyz/nps/stargazers)
 
-* [![GitHub forks](https://img.shields.io/github/forks/ehang-io/nps?style=social)](https://github.com/ehang-io/nps/network)
+* [![GitHub forks](https://img.shields.io/github/forks/yyyz/nps?style=social)](https://github.com/yyyz/nps/network)
