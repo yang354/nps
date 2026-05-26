@@ -1,85 +1,92 @@
-# NPS Intranet Penetration Tool
+# NPS 内网穿透工具
 
-NPS is a lightweight, high-performance, and powerful **intranet penetration** proxy server. It supports **TCP and UDP traffic forwarding**, any **TCP and UDP** upper-layer protocols (accessing intranet websites, local payment interface debugging, SSH access, remote desktop, intranet DNS resolution, etc.). In addition, it also supports **intranet HTTP proxy, intranet SOCKS5 proxy, P2P**, and features a powerful web management interface.
+NPS 是一款轻量级、高性能、功能强大的**内网穿透**代理服务器。目前支持**tcp、udp流量转发**，可支持任何**tcp、udp**上层协议（访问内网网站、本地支付接口调试、ssh访问、远程桌面，内网dns解析等等……），此外还**支持内网http代理、内网socks5代理**、**p2p等**，并带有功能强大的web管理端。
 
-## Quick Start Guide
+## 快速启动步骤
 
-Ensure it has been compiled, then run the following startup commands in the project root directory:
+确保已进行编译，在项目根目录下执行以下启动命令：
 
-### 1. Start Server (NPS)
+### 1. 启动服务端 (NPS)
 
-You can run the following command directly in the project directory to start NPS:
+您可以直接在项目目录下运行以下命令来启动 NPS：
 
 ```bash
-# Run server in the foreground, outputting logs to the terminal
+# 前台运行服务端，输出日志到终端
 ./nps
 
-# Or: Run server in the background and output logs to nps_run.log
+# 或：后台运行服务端并将日志输出到 nps_run.log
 ./nps > nps_run.log 2>&1 &
 ```
 
-> **Web Management Console**
-> Address: http://127.0.0.1:28080
-> Default Username: `admin`
-> Default Password: `123`
+> **Web 管理控制台**
+> 地址：http://127.0.0.1:28080
+> 默认用户名：`admin`
+> 默认密码：`123`
 
-### 2. Start Client (NPC)
+### 2. 启动客户端 (NPC)
 
-Open the Web Console (http://127.0.0.1:28080) in your browser and follow these steps to obtain a unique key:
+在浏览器打开 Web 控制台 (http://127.0.0.1:28080)，按照以下步骤获取唯一密钥：
 
-1. Log in to the Web Console (default account: `admin` / `123`).
-2. Click **"Clients"** in the left menu bar.
-3. Click the **"Add"** button on the page, fill in a remark name, and click save.
-4. In the newly appeared client record, click the **"+"** sign on the far left (or view the **"Verification Key (vkey)"** column).
-5. Copy the client startup command displayed in the panel or just copy the `vkey`.
+1. 登录 Web 控制台（默认账户：`admin` / `123`）。
+2. 在左侧菜单栏点击**“客户端”**。
+3. 点击页面上的**“新增”**按钮，随便填一个备注名称，点击保存。
+4. 在新出现的客户端记录中，点击最左侧的 **“+” 号**（或者查看“**唯一验证密钥 (vkey)**”这一列）。
+5. 复制面板中显示的客户端启动命令或者直接复制 `vkey`。
 
 ```bash
-# Run this startup command on the target device to be penetrated
-./npc -server=127.0.0.1:8024 -vkey=<Your copied vkey> -type=tcp
+# 在需要被穿透的目标设备上执行该启动命令（假设服务端的 IP 是 127.0.0.1）
+./npc -server=127.0.0.1:8024 -vkey=<刚才复制的唯一密钥(vkey)> -type=tcp
 ```
 
-### 3. How to Stop Services
+### 3. 如何停止服务
 
-If you started using the foreground command, simply press `Ctrl + C` in the terminal to stop.
-If you used the background run `&`, you can use process management commands to stop:
+如果您是使用前台命令启动的，直接在运行终端按下 `Ctrl + C` 即可停止。
+如果您是使用后台运行 `&` 或者是通过其他方式脱离了终端，可以使用进程管理命令来停止：
 
 ```bash
-# Stop NPS Server
+# 停止 NPS 服务端
 pkill nps
 
-# Stop NPC Client
+# 停止 NPC 客户端
 pkill npc
 ```
 
-## Function Usage Guide
+## 功能使用指南
 
-Assuming your local machine (running the `nps` server) is both the server and the client, and you want to expose a local service running on this machine to external access.
+假设您的本机（运行了 `nps` 服务端）既是服务端又是客户端，并且您希望将本机上运行的某个本地服务暴露给外部访问。
 
-### Method 1: TCP Tunnel Penetration (For SSH, Database, Local Web Dev, etc.)
+NPS 主要提供了两种最常用的穿透方式：**TCP 隧道** 和 **域名解析（主机）**。
 
-If you want to access the local service directly via `IP:Port`, configure a TCP tunnel.
+### 方式一：TCP 隧道穿透（适合任意协议，如 SSH、数据库、本地 Web 开发等）
 
-1. **Create a client in the Web Console** and get the `vkey`.
-2. **Start NPC (client) on the local machine**: `./npc -server=127.0.0.1:8024 -vkey=YOUR_VKEY -type=tcp &`
-3. **Configure TCP tunnel in the Web Console**:
-   *   Click **"TCP Tunnel"** -> **"Add"** in the left menu.
-   *   **Client ID**: Fill in your client ID.
-   *   **Server Port**: Enter a port you want to be accessed externally (e.g., `9090`).
-   *   **Target (IP:Port)**: Enter the local service address and port (e.g., `127.0.0.1:3000`).
+如果您希望通过 `IP:端口` 的形式直接访问本地服务，请配置 TCP 隧道。
 
-### Method 2: Domain Name Resolution (Host) (For HTTP/HTTPS Websites)
+1. **在 Web 控制台创建客户端**并获取 `vkey`。
+2. **在本机启动 NPC（客户端）**: `./npc -server=127.0.0.1:8024 -vkey=您的vkey -type=tcp &`
+3. **在 Web 控制台配置 TCP 隧道**:
+   *   左侧菜单点击 **“TCP 隧道”** -> **“新增”**。
+   *   **客户端 ID**：填写您的客户端 ID。
+   *   **服务端端口**：输入一个希望外部访问的端口（例如：`9090`）。
+   *   **目标 (IP:端口)**：输入本地服务地址和端口（如 `127.0.0.1:3000`）。
 
-Access different Web website projects in the intranet through different domain names.
+### 方式二：域名解析（主机）（适合 HTTP/HTTPS 网站穿透）
 
-1. Click the **"Host"** button in the client list (or **"Domain Resolution"** in the left menu) -> **"Add"**.
-2. **Host (Domain)**: Fill in the domain you plan to use for access (e.g., `test.yourdomain.com`).
-3. **Target (IP:Port)**: Enter your local Web service address (e.g., `127.0.0.1:8080`).
-4. **How to access**: Visit `http://test.yourdomain.com:18080` from an external network to penetrate to the local `8080` website.
+通过不同的域名，访问内网中不同的 Web 网站项目。
 
-### Advanced Features
+*(前提：您必须拥有公网服务器，并将域名解析到该服务器 IP，且 npc 处于在线状态。)*
 
-*   **UDP Tunnel**: Suitable for game servers/DNS.
-*   **SOCKS5 Proxy**: Suitable for VPN effects, using the intranet network remotely.
-*   **File Access**: Share local folder files temporarily to the external network.
-*   **P2P Connection**: Direct high-speed connection between two intranet devices.
-*   **Secret Proxy**: Extremely secure, for when you do not want to expose any ports publicly.
+1. 点击客户端列表中的 **“主机”** 按钮（或左侧菜单的 **“域名解析”**）-> **“新增”**。
+2. **主机（域名）**：填写您准备用来访问本地域名。例如：`test.yourdomain.com`。
+3. **目标 (IP:端口)**：输入您本机实际运行的本地 Web 服务地址。例如 `127.0.0.1:8080`。
+4. **如何访问**：在外网通过浏览器访问网址 `http://test.yourdomain.com:18080` 即可穿透到本地 `8080` 网站。
+
+### 进阶功能详细使用步骤
+
+*   **UDP 隧道**：适合游戏联机/DNS，在 Web 控制台“UDP 隧道”新增映射。
+*   **SOCKS5 代理**：适合 VPN 效果/借用内网网络，在 Web 控制台“SOCKS 代理”新增映射，使用 `1080` 端口。
+*   **文件访问**：适合临时向外网分享本地文件夹内的文件，在 Web 控制台“文件访问”新增映射，填入电脑文件夹绝对路径。
+*   **P2P 连接**：极速直连，不限速，适合两台内网设备（A 和 B）直接传输大文件。
+*   **私密代理**：极致安全，不希望在公网上公开暴露任何端口。
+
+---
+欢迎提交 issue 或 PR，共同完善项目！
